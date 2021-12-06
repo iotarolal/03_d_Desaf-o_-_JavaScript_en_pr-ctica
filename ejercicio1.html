@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+            <div class="resultado" style="color:green;font-style: italic"></div>
+            <form id="formulario"  onsubmit='return isValid("")'>
+                <div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text" required>
+                        <p class="errorNombre" style="color:red;font-style: italic;"></p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text" required>
+                        <p class="errorAsunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje" required></textarea>
+                    <p class="errorMensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="botton" type="submit">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+
+        // obtenemos los elementos de la pagina y lo guardamos en constantes
+        const form = document.querySelector('#formulario');
+        const nombre = document.querySelector('#nombre');
+        const asunto = document.querySelector('#asunto');
+        const mensaje = document.querySelector('#mensaje');
+
+        const errornombre = document.querySelector('.errorNombre');
+        const errorasunto = document.querySelector('.errorAsunto');
+        const errormensaje = document.querySelector('.errorMensaje');
+        const resultado = document.querySelector('.resultado');
+
+
+        function isValid(word){
+            console.log('adentro de funcion ' + word);
+            return word.match(/^[a-zA-Z0-9 ]+$/) != null
+        }
+
+        // reacionamos al envio del formlario
+        form.addEventListener('submit', function (ev) {
+
+            // primero evitamos que se recargue la página
+            ev.preventDefault();
+
+            // obtengo valores nombre, asunto  y mensaje
+            const get_nombre = nombre.value;
+            const get_asunto = asunto.value;
+            const get_mensaje = mensaje.value;
+
+            console.log('inicio funciones ' + get_nombre + get_asunto + get_mensaje);
+
+            // Validamos lo escrito por el usuario
+            if (isValid(get_nombre) == false) {
+                errornombre.innerHTML = 'Hay errores en el Nombre'
+            }
+
+            if (isValid(get_asunto) == false) {
+                errorasunto.innerHTML= 'Hay errores en el Asunto'
+            }
+
+            if (isValid(get_mensaje) == false) {
+                errormensaje.innerHTML= 'Hay errores en el Mensaje'
+            }
+
+            if (isValid(get_nombre) && isValid(get_asunto) && isValid(get_mensaje)) {
+                resultado.innerHTML = 'Mensaje enviado con éxito !!!'
+                errornombre.innerHTML = ''
+                errorasunto.innerHTML= ''
+                errormensaje.innerHTML= ''
+
+            }
+            
+
+        });
+
+
+    </script>
+</body>
+
+</html>
